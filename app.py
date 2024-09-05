@@ -1,12 +1,4 @@
-#Downloads
-
-# pip install folium
-# pip install geopandas 
-# pip install pandas
-# pip install geopy
-# pip install Flask
-# pip install pyscript
-# pip install pyinstaller
+# Abre o 'requirements.txt'
 
 from flask import Flask, render_template, redirect, request, flash, url_for
 import json
@@ -74,6 +66,11 @@ def mapa():
     import pandas as pds
 
     #Pegando a localização
+    # cidade = request.form.get("cidade")
+    # rua = request.form.get("rua")
+    # nmr = request.form.get("nmr")
+    # comp = request.form.get("comp")
+    
     end = request.form.get("end") # R. Manoel Santos Chieira, 92
     corPin = request.form["situacao"]
     coord = gpds.tools.geocode(end, provider = "nominatim", user_agent = "myGeocode")["geometry"]  # só funciona na janela interativa
