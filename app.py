@@ -65,13 +65,12 @@ def mapa():
     import geopandas as gpds
     import pandas as pds
 
-    #Pegando a localização
-    # cidade = request.form.get("cidade")
-    # rua = request.form.get("rua")
-    # nmr = request.form.get("nmr")
-    # comp = request.form.get("comp")
-    
-    end = request.form.get("end") # R. Manoel Santos Chieira, 92
+    #Pegando a localização - EX: R. Manoel Santos Chieira, 92
+    cidade = request.form.get("cidade")
+    rua = request.form.get("rua")
+    nmr = request.form.get("nmr")
+    comp = request.form.get("comp")
+    end =  [rua, nmr, cidade]
     corPin = request.form["situacao"]
     coord = gpds.tools.geocode(end, provider = "nominatim", user_agent = "myGeocode")["geometry"]  # só funciona na janela interativa
     string = str(coord[0])

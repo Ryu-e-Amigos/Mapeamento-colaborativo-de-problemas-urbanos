@@ -5,7 +5,7 @@
 # pip install pandas
 # pip install geopy
 #pip install Flask
-#pip install pyscript
+#pip install    
 #pip install pyinstaller
 
 #Imports
