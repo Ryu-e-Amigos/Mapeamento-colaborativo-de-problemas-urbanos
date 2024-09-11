@@ -5,12 +5,10 @@
 # pip install pandas
 # pip install geopy
 #pip install Flask  
-#pip install pyinstaller
 
 #Imports
 import folium
 import folium.plugins
-from folium.plugins import FloatImage
 import geopandas as gpds
 import pandas as pds
 import pyperclip
@@ -25,7 +23,6 @@ separacao.remove(separacao[0])
 lat = (separacao[1].replace(')',''))
 lon = (separacao[0].replace('(',''))
 
-
 #Configurações do mapa
 m = folium.Map(location=(-22.2127829,-49.9557924), zoom_start = 12, control_scale = False, )
 folium.plugins.Geocoder().add_to(m)
@@ -33,12 +30,9 @@ folium.plugins.Fullscreen(position="topright", title="Expand me", title_cancel="
 
 # Marcador
 folium.Marker(location = [lat, lon]).add_to(m)
-
-#testes noias (Nicolas)
-#folium.ClickForLatLng(format_str='"[" + lat + "," + lng + "]"', alert=True).add_to(m)
-#with open("localiza_inverso.json", "a+") as loc_inv:
-#    loc_inv = pyperclip.paste()
-#    loc_inc_ = json.load(loc_inv)
+folium.ClickForLatLng(format_str='"[" + lat + "," + lng + "]"', alert=True).add_to(m)
+loc_inv = pyperclip.paste()
+print(loc_inv)
 
 # Rodando
 m

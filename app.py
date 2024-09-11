@@ -90,6 +90,7 @@ def mapa():
     m = folium.Map(location=(-22.2127829,-49.9557924), zoom_start = 12, control_scale = True, )
     folium.plugins.Geocoder().add_to(m)
     folium.plugins.Fullscreen(position="topright", title="Expand me", title_cancel="Exit me", force_separate_button=True, ).add_to(m)
+    folium.ClickForLatLng(format_str='"[" + lat + "," + lng + "]"', alert=True).add_to(m)
 
     # Marcador
     with open('localiza.json', 'r') as localiza:
