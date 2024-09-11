@@ -14,6 +14,7 @@ from folium.plugins import FloatImage
 import geopandas as gpds
 import pandas as pds
 import pyperclip
+import json
 
 #Pegando a localização
 end = input("Endereço: ") # R. Manoel Santos Chieira, 92
@@ -26,19 +27,18 @@ lon = (separacao[0].replace('(',''))
 
 
 #Configurações do mapa
-m = folium.Map(location=(-22.2127829,-49.9557924), zoom_start = 12, control_scale = True, )
+m = folium.Map(location=(-22.2127829,-49.9557924), zoom_start = 12, control_scale = False, )
 folium.plugins.Geocoder().add_to(m)
 folium.plugins.Fullscreen(position="topright", title="Expand me", title_cancel="Exit me", force_separate_button=True, ).add_to(m)
-image_file = "favicon.png"
-FloatImage(image_file, bottom = 10, left = 86).add_to(m)
 
 # Marcador
 folium.Marker(location = [lat, lon]).add_to(m)
 
-#testes variados (Nicolas)
-folium.ClickForLatLng(format_str='"[" + lat + "," + lng + "]"', alert=True).add_to(m)
-open("localiza_inverso.json", "a+", pyperclip.paste())
-
+#testes noias (Nicolas)
+#folium.ClickForLatLng(format_str='"[" + lat + "," + lng + "]"', alert=True).add_to(m)
+#with open("localiza_inverso.json", "a+") as loc_inv:
+#    loc_inv = pyperclip.paste()
+#    loc_inc_ = json.load(loc_inv)
 
 # Rodando
 m
