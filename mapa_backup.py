@@ -4,8 +4,7 @@
 # pip install geopandas 
 # pip install pandas
 # pip install geopy
-#pip install Flask
-#pip install    
+#pip install Flask  
 #pip install pyinstaller
 
 #Imports
@@ -14,6 +13,7 @@ import folium.plugins
 from folium.plugins import FloatImage
 import geopandas as gpds
 import pandas as pds
+import pyperclip
 
 #Pegando a localização
 end = input("Endereço: ") # R. Manoel Santos Chieira, 92
@@ -34,6 +34,11 @@ FloatImage(image_file, bottom = 10, left = 86).add_to(m)
 
 # Marcador
 folium.Marker(location = [lat, lon]).add_to(m)
+
+#testes variados (Nicolas)
+folium.ClickForLatLng(format_str='"[" + lat + "," + lng + "]"', alert=True).add_to(m)
+open("localiza_inverso.json", "a+", pyperclip.paste())
+
 
 # Rodando
 m
