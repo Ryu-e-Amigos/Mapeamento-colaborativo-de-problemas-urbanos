@@ -2,6 +2,7 @@
 
 from flask import Flask, render_template, redirect, request, flash, url_for
 import json
+import pyperclip
 
 #iniciando
 app = Flask(__name__)
@@ -86,11 +87,27 @@ def mapa():
        json.dump(data, f, indent=4)
        f.truncate()
 
+
     #Configurações do mapa
-    m = folium.Map(location=(-22.2127829,-49.9557924), zoom_start = 12, control_scale = True, )
+    m = folium.Map(location=(-22.2127829,-49.9557924), zoom_start = 12, control_scale = False, )
     folium.plugins.Geocoder().add_to(m)
-    folium.plugins.Fullscreen(position="topright", title="Expand me", title_cancel="Exit me", force_separate_button=True, ).add_to(m)
-    folium.ClickForLatLng(format_str='"[" + lat + "," + lng + "]"', alert=True).add_to(m)
+    folium.plugins.Fullscreen(position="topright", title="Expand me", title_cancel="Exit me", force_separate_button=True).add_to(m)
+
+    
+    #-22.224190, -49.940762
+    folium.ClickForLatLng(format_str='lat + "," + lng', alert=True).add_to(m)
+    loc_inv = pyperclip.paste()
+    separacao_inv = loc_inv.split(",")
+    lat_inv = float(separacao_inv[0])
+    lon_inv = float(separacao_inv[1])
+    
+#
+    with open('localiza_inverso.json', 'r+') as f:
+           data = json.load(f)
+           data.append({"lat": lat_inv, "lon": lon_inv})
+           f.seek(0)
+           json.dump(data, f, indent=4)
+           f.truncate()
 
     # Marcador
     with open('localiza.json', 'r') as localiza:
@@ -122,6 +139,11 @@ def mapa():
       </div>
      '''
     m.get_root().html.add_child(folium.Element(legend_html))
+
+    botao_html = '''
+     <button style="position: fixed; ">Confirmar</button>
+     '''
+    m.get_root().html.add_child(folium.Element(botao_html))
     
     # Rodando
     m.save("templates/mapa.html")
