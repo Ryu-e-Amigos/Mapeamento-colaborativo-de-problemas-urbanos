@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="pt-br">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -7,77 +8,90 @@
     <link rel="stylesheet" href="{{ url_for('static', filename='report.css') }}">
     <link rel="shortcut icon" href="{{ url_for('static', filename='favicon.png') }}" type="imgs/x-icon">
 </head>
+
 <body>
-    <header >
-        <a href="https://www.dsin.com.br/" target="_blank"><img src="static/cap1.jpg" alt="" id="logo"></a>
+    <header>
+        <a href="https://www.dsin.com.br/" target="_blank">
+            <img src="static/cap1.png" alt="" id="logo"></a>
 
         <div id="redes">
-            <a href="https://www.facebook.com/DSINTECNOLOGIA/" target="_blank" rel="noopener noreferrer"><img class="lazy loaded" src="https://www.dsin.com.br/wp-content/uploads/2022/01/facebook.svg" data-src="https://www.dsin.com.br/wp-content/uploads/2022/01/facebook.svg" alt="Ícone" data-was-processed="true"></a>
-            <a href="https://www.instagram.com/dsintecnologia/" target="_blank" rel="noopener noreferrer"><img class="lazy loaded" src="https://www.dsin.com.br/wp-content/uploads/2022/01/instagram.svg" data-src="https://www.dsin.com.br/wp-content/uploads/2022/01/instagram.svg" alt="Ícone" data-was-processed="true"></a>
-           <a href="https://www.linkedin.com/company/dsin-tecnologia-da-informacao" target="_blank" rel="noopener noreferrer"><img class="lazy loaded" src="https://www.dsin.com.br/wp-content/uploads/2022/01/linkedin.svg" data-src="https://www.dsin.com.br/wp-content/uploads/2022/01/linkedin.svg" alt="Ícone" data-was-processed="true"></a>
-         </div>
-         
+            <a href="https://www.facebook.com/DSINTECNOLOGIA/" target="_blank" rel="noopener noreferrer"><img
+                    class="lazy loaded" src="https://www.dsin.com.br/wp-content/uploads/2022/01/facebook.svg"
+                    data-src="https://www.dsin.com.br/wp-content/uploads/2022/01/facebook.svg" alt="Ícone"
+                    data-was-processed="true"></a>
+            <a href="https://www.instagram.com/dsintecnologia/" target="_blank" rel="noopener noreferrer"><img
+                    class="lazy loaded" src="https://www.dsin.com.br/wp-content/uploads/2022/01/instagram.svg"
+                    data-src="https://www.dsin.com.br/wp-content/uploads/2022/01/instagram.svg" alt="Ícone"
+                    data-was-processed="true"></a>
+            <a href="https://www.linkedin.com/company/dsin-tecnologia-da-informacao" target="_blank"
+                rel="noopener noreferrer"><img class="lazy loaded"
+                    src="https://www.dsin.com.br/wp-content/uploads/2022/01/linkedin.svg"
+                    data-src="https://www.dsin.com.br/wp-content/uploads/2022/01/linkedin.svg" alt="Ícone"
+                    data-was-processed="true"></a>
+        </div>
+
 
     </header>
     <main>
         <section id="ContainerReport">
             <form action="toMap" id="report" method="post">
                 <h1 id="titleReport">REPORT</h1>
-              
+
                 <div id="txtReport">
 
-                   
 
-                    <div class= "input-group mb-3">
-                    <input type="text" class="form-control" name="cidade" placeholder="Digite a sua cidade">
-                    </div>   
-                    
-                   
-                     <div class= "input-group mb-3">
-                    <input type="text" class="form-control" name="rua" placeholder="Digite a sua rua">
-                 </div>   
-                    
 
-                 
-                    <div class= "input-group mb-3">
-                    <input type="text" class="form-control" name="nmr" placeholder="Digite a seu numero">
-                    </div>   
-                    
+                    <div class="input-group mb-3">
+                        <input type="text" class="form-control" name="cidade" placeholder="Digite a sua cidade">
+                    </div>
 
-                    <div class= "input-group mb-3">
-                     <input type="text" class="form-control" name="comp" placeholder="Digite o seu complemento">
-                    
-                    </div>   
-                   
-                   
-                    <div class= "input-group mb-3">
-                        <select name="situacao" class="form-control" >
-                        <option>irregularidade</option>
-                        <option value="bur">Buraco</option>
-                        <option value="sem">Semáforo</option>
-                        <option value="vaz">Vazamento</option>
-                        <option value="obs">Obstrução</option>
-                    </select>
 
-                    </div>   
-                
-                   
-                    
-                   
-                    <div class= "input-group mb-3">
-                    <input type="file" name="foto"  class="form-control" >
-                    </div>   
-              
+                    <div class="input-group mb-3">
+                        <input type="text" class="form-control" name="rua" placeholder="Digite a sua rua">
+                    </div>
+
+
+
+                    <div class="input-group mb-3">
+                        <input type="text" class="form-control" name="nmr" placeholder="Digite a seu numero">
+                    </div>
+
+
+                    <div class="input-group mb-3">
+                        <input type="text" class="form-control" name="comp" placeholder="Digite o seu complemento">
+
+                    </div>
+
+
+                    <div class="input-group mb-3">
+                        <select name="situacao" class="form-control">
+                            <option>irregularidade</option>
+                            <option value="bur">Buraco</option>
+                            <option value="sem">Semáforo</option>
+                            <option value="vaz">Vazamento</option>
+                            <option value="obs">Obstrução</option>
+                        </select>
+
+                    </div>
+
+
+
+
+                    <div class="input-group mb-3">
+                        <input type="file" name="foto" class="form-control">
+                    </div>
+
                     <div id="btn">
-                    <a href="report.html"><button id="btnConf">Confirmar</button></a>
+                        <a href="report.html"><button id="btnConf">Confirmar</button></a>
                     </div>
                 </div>
-                
-                
-               
+
+
+
 
             </form>
         </section>
     </main>
 </body>
+
 </html>
