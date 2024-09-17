@@ -8,14 +8,22 @@
     <link rel="shortcut icon" href="static/favicon.png" type="static/x-icon">
 </head>
 <body>
-    <header id="cabecalho">
-        <a href="https://www.dsin.com.br/" target="_blank"><img src="static/logo.png" alt="" id="logo"></a>
+    <header>
+        <a href="https://www.dsin.com.br/" target="_blank"><img src="static/cap1.jpg" alt="" id="logo"></a>
+
+        <div id="redes">
+            <a href="https://www.facebook.com/DSINTECNOLOGIA/" target="_blank" rel="noopener noreferrer"><img class="lazy loaded" src="https://www.dsin.com.br/wp-content/uploads/2022/01/facebook.svg" data-src="https://www.dsin.com.br/wp-content/uploads/2022/01/facebook.svg" alt="Ícone" data-was-processed="true"></a>
+            <a href="https://www.instagram.com/dsintecnologia/" target="_blank" rel="noopener noreferrer"><img class="lazy loaded" src="https://www.dsin.com.br/wp-content/uploads/2022/01/instagram.svg" data-src="https://www.dsin.com.br/wp-content/uploads/2022/01/instagram.svg" alt="Ícone" data-was-processed="true"></a>
+           <a href="https://www.linkedin.com/company/dsin-tecnologia-da-informacao" target="_blank" rel="noopener noreferrer"><img class="lazy loaded" src="https://www.dsin.com.br/wp-content/uploads/2022/01/linkedin.svg" data-src="https://www.dsin.com.br/wp-content/uploads/2022/01/linkedin.svg" alt="Ícone" data-was-processed="true"></a>
+         </div>
+         
+
     </header>
     <main>
         <section id="ContainerCad">
             <form action="cadastro" id="cadastro" method="post">
-                <label for="" id="titleCad">CADASTRO</label>
-                <br><br>
+                <h1 for="" id="titleCad">Cadastro</h1>
+               
                 {% set mensagens = get_flashed_messages() %}
                     {% if mensagens %}
                         <div id="msgErro">
@@ -24,18 +32,21 @@
                             {% endfor %}
                         </div>
                     {% endif %}
-                <div id="txtCad">
-                    <label for="usuario">Usuário:</label>
-                    <br>
-                    <input type="text" class="escreva" name="usuario" minlength="8" required>
-                    <br><br>
-                    <label for="senha">Senha:</label>
-                    <br>
-                    <input type="password" class="escreva" name="senha" minlength="8" required>
-                    <br><br>
-                    <label for="confSenha">Confirmar Senha:</label>
-                    <br>
-                    <input type="password" class="escreva" name="confSenha" minlength="8" required>
+                <div class= "input-group mb-3">
+                    
+                    
+                    <input type="text" class="form-control" name="usuario" placeholder="Crie um nome de usuario " minlength="8" required>
+                </div>
+
+                    <div class= "input-group mb-3">
+                        <input type="password" class="form-control" placeholder="Crie uma senha" name="senha" minlength="8" required>
+
+                    </div>
+                    <div class= "input-group mb-3">
+                   
+                
+                        <input type="password" class="form-control" name="confSenha" placeholder="Confirme a sua senha" minlength="8" required>
+                    </div>
                 </div>
                 <br><br>
                 <div id="btn">
