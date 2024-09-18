@@ -93,21 +93,11 @@ def mapa():
     folium.plugins.Geocoder().add_to(m)
     folium.plugins.Fullscreen(position="topright", title="Expand me", title_cancel="Exit me", force_separate_button=True).add_to(m)
 
-    
-    #-22.224190, -49.940762
-    folium.ClickForLatLng(format_str='lat + "," + lng', alert=True).add_to(m)
-    loc_inv = pyperclip.paste()
-    separacao_inv = loc_inv.split(",")
-    lat_inv = float(separacao_inv[0])
-    lon_inv = float(separacao_inv[1])
-    
-#
-    with open('localiza_inverso.json', 'r+') as f:
-           data = json.load(f)
-           data.append({"lat": lat_inv, "lon": lon_inv})
-           f.seek(0)
-           json.dump(data, f, indent=4)
-           f.truncate()
+
+
+
+#   ======================================    INVERSÃO DE FLUXO    ==========================================
+
 
     # Marcador
     with open('localiza.json', 'r') as localiza:
