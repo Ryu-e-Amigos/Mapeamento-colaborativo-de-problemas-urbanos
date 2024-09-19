@@ -1,24 +1,166 @@
 import mysql.connector
+from mysql.connector import Error
+import pandas as pd
 
-conexao = mysql.connector.connect(
-  host='localhost',
-  user='root',
-  password='Senha-1234',
-)
+# conexao = mysql.connector.connect(
+#   host='localhost',
+#   user='root',
+#   password='Senha-1234',
+# )
 
-cursor = conexao.cursor()
-cursor.execute("SHOW DATABASES LIKE 'banco'")
+# cursor = conexao.cursor()
+# cursor.execute("SHOW DATABASES LIKE 'banco'")
 
-resultado = cursor.fetchone()
+# resultado = cursor.fetchone()
 
-if resultado:
-    print("O banco de dados já existe.")
-else:
-    cursor.execute("CREATE DATABASE banco")
+# if resultado:
+#     print("O banco de dados já existe.")
+# else:
+#     cursor.execute("CREATE DATABASE banco")
 
-if not resultado:
-    cursor.execute("CREATE DATABASE banco")
+# if not resultado:
+#     cursor.execute("CREATE DATABASE banco")
 
+db = "banco";
+pw = 'Senha-1234';
+#------------------------------------------------------------------------
+def create_server_connection(host_name, user_name, user_password):
+    connection = None;
+    try:
+        connection = mysql.connector.connect(
+            host=host_name,
+            user=user_name,
+            passwd=user_password
+        )
+        print("MySQL Database conectado com sucesso")
+    except Error as err:
+        print(f"Error: '{err}'")
+
+    return connection 
+
+#------------------------------------------------------------------------
+
+connection = create_server_connection('localhost', 'root', pw)
+
+#------------------------------------------------------------------------
+
+def create_database(connection, query):
+    cursor = connection.cursor()
+    try:
+        cursor.execute(query)
+        print("Database criado com sucesso")
+    except Error as err:
+        print(f"Error: '{err}'")
+
+create_database_query = "CREATE DATABASE banco"
+
+#------------------------------------------------------------------------
+
+create_database(connection, create_database_query)
+
+#------------------------------------------------------------------------
+
+def create_db_connection(host_name, user_name, user_password, db_name):
+    connection = None
+    try:
+        connection = mysql.connector.connect(
+            host=host_name,
+            user=user_name,
+            passwd=user_password,
+            database=db_name
+        )
+        print("MySQL Database conectado com sucesso")
+    except Error as err:
+        print(f"Error: '{err}'")
+
+    return connection
+#------------------------------------------------------------------------
+
+connection = create_db_connection("localhost", "root", pw, db) # Connect to the Database
+
+#------------------------------------------------------------------------
+def execute_query(connection, query):
+    cursor = connection.cursor()
+    try:
+        cursor.execute(query)
+        connection.commit()
+        print("Query successful")
+    except Error as err:
+        print(f"Error: '{err}'")
+#------------------------------------------------------------------------
+
+# execute_query(connection, create_teacher_table) # Execute our defined query
+
+#------------------------------------------------------------------------
+
+def read_query(connection, query):
+    cursor = connection.cursor()
+    result = None
+    try:
+        cursor.execute(query)
+        result = cursor.fetchall()
+        return result
+    except Error as err:
+        print(f"Error: '{err}'")
+
+#------------------------------------------------------------------------
+
+#------------------------------------------------------------------------
+
+# TABELAS
+#------------------------------------------------------------------------
+# USUARIO
+create_usuario_table = """
+    CREATE TABLE usuario (
+        Id INT AUTO_INCREMENT PRIMARY KEY,
+        login VARCHAR(40) NOT NULL,
+        senha VARCHAR(40) NOT NULL
+    );
+    """
+#------------------------------------------------------------------------
+# ENDERECO
+create_endereco_table = """
+    CREATE TABLE endereco (
+        Id INT AUTO_INCREMENT PRIMARY KEY,
+        rua VARCHAR(40) NOT NULL,
+        cidade VARCHAR(40) NOT NULL,
+        numero INT,
+        complemento VARCHAR(40)
+    );
+    """
+#------------------------------------------------------------------------
+# REPORT
+create_report_table = """
+    CREATE TABLE report (
+        Id INT AUTO_INCREMENT PRIMARY KEY,
+        situacao INT NOT NULL,
+        foto VARCHAR(255),
+        endereco_id INT,
+        FOREIGN KEY (endereco_id) REFERENCES endereco(Id)
+    );
+    """
+#------------------------------------------------------------------------
+# TABELA DE RELACIONAMENTO: USUARIO_REPORT
+create_usuario_report_table = """
+    CREATE TABLE usuario_report (
+        usuario_id INT,
+        report_id INT,
+        PRIMARY KEY (usuario_id, report_id),
+        FOREIGN KEY (usuario_id) REFERENCES usuario(Id),
+        FOREIGN KEY (report_id) REFERENCES report(Id)
+    );
+    """
+#------------------------------------------------------------------------
+
+execute_query(connection, create_usuario_table)
+
+execute_query(connection, create_endereco_table) # Execute our defined query
+
+execute_query(connection, create_report_table) # Execute our defined query
+
+execute_query(connection, create_usuario_report_table) # Execute our defined query
+
+#------------------------------------------------------------------------
 
 # cursor.execute("INSERT INTO clientes (nome, email) VALUES ('João', 'joao@email.com')")
 
