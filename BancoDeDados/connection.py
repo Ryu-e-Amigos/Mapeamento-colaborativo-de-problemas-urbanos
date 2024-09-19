@@ -172,3 +172,20 @@ execute_query(connection, create_usuario_report_table) # Execute our defined que
 # cursor.execute(comando_sql, dados)
 # db.commit()
 # print(cursor.rowcount, "registro inserido") # 1 registro inserido
+
+def mostrandoReports():
+    cursor = connection.cursor()
+    cursor.execute(
+        """
+            SELECT r.situacao, e.rua, e.cidade, e.numero 
+            FROM banco.report r
+            INNER JOIN banco.endereco e
+            ON e.Id = r.endereco_id;
+        """
+    )
+
+    colunas = [desc[0] for desc in cursor.description]
+    df = pd.DataFrame(cursor.fetchall(), columns=colunas)
+    cursor.close()
+
+    return df

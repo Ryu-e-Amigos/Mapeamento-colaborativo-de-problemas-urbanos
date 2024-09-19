@@ -3,6 +3,11 @@
 from flask import Flask, render_template, redirect, request, flash, url_for
 import json
 import pyperclip
+import pandas as pds
+import folium
+import folium.plugins
+import geopandas as gpds
+from BancoDeDados.connection import mostrandoReports
 
 #iniciando
 app = Flask(__name__)
@@ -61,10 +66,6 @@ def criaConta():
 
 @app.route('/toMap', methods = ["POST"])
 def mapa():
-    import folium
-    import folium.plugins
-    import geopandas as gpds
-    import pandas as pds
 
     #Pegando a localização - EX: R. Manoel Santos Chieira, 92
     cidade = request.form.get("cidade")
@@ -100,19 +101,7 @@ def mapa():
 
 
     # Marcador
-    with open('localiza.json', 'r') as localiza:
-        lista = json.load(localiza)
-
-    for c in lista:
-        corPin = c["sit"]
-        if corPin == "bur":
-            folium.Marker(location = [c['lat'], c['lon']], icon=folium.Icon(color='red')).add_to(m)
-        elif corPin == "sem":
-            folium.Marker(location = [c['lat'], c['lon']], icon=folium.Icon(color='blue')).add_to(m)
-        elif corPin == "vaz":
-            folium.Marker(location = [c['lat'], c['lon']], icon=folium.Icon(color='green')).add_to(m)
-        else:
-            folium.Marker(location = [c['lat'], c['lon']], icon=folium.Icon(color='black')).add_to(m)
+    puxarReports(m)
 
     # Legenda
     legend_html = '''
@@ -138,6 +127,35 @@ def mapa():
     # Rodando
     m.save("templates/mapa.html")
     return redirect(url_for("main"))
+
+#Função do Banco
+def puxarReports(m):
+    df = mostrandoReports()
+
+    rua_lista = df['rua'].tolist()
+    cidade_lista = df['cidade'].tolist()
+    numero_lista = df['numero'].tolist()
+    situacao_lista = df['situacao'].tolist()
+
+    for i in range(0, len(df), 1):
+        end = [rua_lista[i], numero_lista[i], cidade_lista[i]]
+
+        coord = gpds.tools.geocode(end, provider="nominatim", user_agent="myGeocode")["geometry"]
+        string = str(coord[0])
+        separacao = string.split()
+        separacao.remove(separacao[0])
+        lat = (separacao[1].replace(')',''))
+        lon = (separacao[0].replace('(',''))
+
+        corPin = situacao_lista[i]
+        if corPin == 1:
+            folium.Marker(location=[lat, lon], icon=folium.Icon(color='red')).add_to(m)
+        elif corPin == 2:
+            folium.Marker(location=[lat, lon], icon=folium.Icon(color='blue')).add_to(m)
+        elif corPin == 3:
+            folium.Marker(location=[lat, lon], icon=folium.Icon(color='green')).add_to(m)
+        else:
+            folium.Marker(location=[lat, lon], icon=folium.Icon(color='black')).add_to(m)
 
 #execução
 if __name__ == "__main__":
