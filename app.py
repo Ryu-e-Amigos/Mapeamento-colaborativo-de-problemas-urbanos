@@ -1,12 +1,13 @@
 # Abre o 'requirements.txt'
 
-from flask import Flask, render_template, redirect, request, flash, url_for
+from flask import Flask, render_template, redirect, request, flash, url_for, session
 import json
 import pyperclip
 import pandas as pds
 import folium
 import folium.plugins
 import geopandas as gpds
+from BancoDeDados import enderecoDao, reportDao, usuarioDao
 from BancoDeDados.connection import mostrandoReports
 
 #iniciando
@@ -34,14 +35,16 @@ def report():
 def verificaLogin():
     usuario_login = request.form.get("usuario")
     senha_login = request.form.get("senha")
-    with open('usuarios.json', 'r') as usuarios:
-        lista = json.load(usuarios)
-        for c in lista:
-            if usuario_login == c['nome'] and senha_login == c['senha']:
-                return redirect(url_for("report"))
-        else:
-            flash("Usuário Inválido")
-            return redirect(url_for("login"))
+    newUsuarioDao = usuarioDao.Usuario()
+    login = newUsuarioDao.verificaLogin(usuario_login, senha_login)
+
+    if login:
+        print(login[0])
+        session['usuario_id'] = login[0]  # Armazena o ID do usuário na sessão
+        return redirect(url_for("report"))
+    else:
+        flash("Usuário Inválido")
+        return redirect(url_for("login"))
             
 @app.route('/cadastro', methods = ["POST"])
 def criaConta():
@@ -49,16 +52,8 @@ def criaConta():
     senha = request.form.get("senha")
     confSenha = request.form.get("confSenha")
     if senha == confSenha:
-        with open('usuarios.json', 'r+') as f:
-            data = json.load(f)
-            for c in data:
-                if usuario == c['nome']:
-                    flash("Nome de usuário já existe!")
-                    return redirect(url_for("cadastro"))
-            data.append({"nome": usuario, "senha": senha})
-            f.seek(0)
-            json.dump(data, f, indent=4)
-            f.truncate()
+        newUsuarioDao = usuarioDao.Usuario()
+        newUsuarioDao.salvarNovo(usuario, senha)
         return redirect(url_for("report"))
     else:
         flash("Senha e confirmação diferentes!")
@@ -66,27 +61,38 @@ def criaConta():
 
 @app.route('/toMap', methods = ["POST"])
 def mapa():
+    print(session['usuario_id'])
+    if 'usuario_id' not in session:
+        print('Você precisa estar logado para salvar um report.')
+        flash("Você precisa estar logado para salvar um report.")
+        return redirect(url_for("login"))
+    else:
+        print('Usuario logado.')
 
     #Pegando a localização - EX: R. Manoel Santos Chieira, 92
     cidade = request.form.get("cidade")
+    print(cidade)
     rua = request.form.get("rua")
+    print(rua)
     nmr = request.form.get("nmr")
+    print(nmr)
     comp = request.form.get("comp")
+    print(comp)
     end =  [rua, nmr, cidade]
     corPin = request.form["situacao"]
-    coord = gpds.tools.geocode(end, provider = "nominatim", user_agent = "myGeocode")["geometry"]  # só funciona na janela interativa
-    string = str(coord[0])
-    separacao = string.split()
-    separacao.remove(separacao[0])
-    lat = (separacao[1].replace(')',''))
-    lon = (separacao[0].replace('(',''))
+    print(corPin)
+    # coord = gpds.tools.geocode(end, provider = "nominatim", user_agent = "myGeocode")["geometry"]  # só funciona na janela interativa
+    # string = str(coord[0])
+    # separacao = string.split()
+    # separacao.remove(separacao[0])
+    # lat = (separacao[1].replace(')',''))
+    # lon = (separacao[0].replace('(',''))
     
-    with open('localiza.json', 'r+') as f:
-       data = json.load(f)
-       data.append({"lat": lat, "lon": lon, "sit": corPin})
-       f.seek(0)
-       json.dump(data, f, indent=4)
-       f.truncate()
+    newEnderecoDao = enderecoDao.endereco()
+    newEnderecoId = newEnderecoDao.salvarNovo(rua, cidade, nmr, comp)
+    newReportDao = reportDao.Report()
+    newReportDao.salvarNovo(corPin, newEnderecoId, session['usuario_id']) # Pega o ID do usuário da sessão
+
 
 
     #Configurações do mapa
