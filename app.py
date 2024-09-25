@@ -54,6 +54,8 @@ def criaConta():
     if senha == confSenha:
         newUsuarioDao = usuarioDao.Usuario()
         newUsuarioDao.salvarNovo(usuario, senha)
+        # print(login[0])
+        session['usuario_id'] = 1
         return redirect(url_for("report"))
     else:
         flash("Senha e confirmação diferentes!")

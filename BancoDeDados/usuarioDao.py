@@ -18,6 +18,7 @@ class Usuario():
         cursor.execute(insert_query, (usuario, senha))
         newConnection.commit()
         cursor.close()
+        # return result
     
     def _verificarSeUserExist(self, usuario: str):
         query = "SELECT * FROM banco.usuario WHERE login = %s"
