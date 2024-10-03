@@ -1,7 +1,7 @@
 from flask import flash, redirect, url_for
 from BancoDeDados import connection
 
-newConnection = connection.create_server_connection('localhost', 'root', connection.pw)
+newConnection = connection.create_server_connection('localhost', 'root')
 
 class Usuario():
     def salvarNovo(self, usuario: str, senha: str):

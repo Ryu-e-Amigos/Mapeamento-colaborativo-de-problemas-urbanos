@@ -145,25 +145,29 @@ def puxarReports(m):
     numero_lista = df['numero'].tolist()
     situacao_lista = df['situacao'].tolist()
 
-    for i in range(0, len(df), 1):
-        end = [rua_lista[i], numero_lista[i], cidade_lista[i]]
+    cor_dict = {1: 'red', 2: 'blue', 3: 'green'}
 
-        coord = gpds.tools.geocode(end, provider="nominatim", user_agent="myGeocode")["geometry"]
-        string = str(coord[0])
-        separacao = string.split()
-        separacao.remove(separacao[0])
-        lat = (separacao[1].replace(')',''))
-        lon = (separacao[0].replace('(',''))
+    for i, (rua, numero, cidade) in enumerate(zip(rua_lista, numero_lista, cidade_lista)):
+        end = [rua, numero, cidade]
+
+        try:
+            coord = gpds.tools.geocode(end, provider="nominatim", user_agent="myGeocode")["geometry"]
+            string = str(coord[0])
+            separacao = string.split()
+            separacao.remove(separacao[0])
+            lat = (separacao[1].replace(')',''))
+            lon = (separacao[0].replace('(',''))
+
+        except KeyError:
+            print(f"Erro na chave: {KeyError}")
+            continue
+        except TypeError:
+            print(f"Erro no tipo: {TypeError}")
+            continue
 
         corPin = situacao_lista[i]
-        if corPin == 1:
-            folium.Marker(location=[lat, lon], icon=folium.Icon(color='red')).add_to(m)
-        elif corPin == 2:
-            folium.Marker(location=[lat, lon], icon=folium.Icon(color='blue')).add_to(m)
-        elif corPin == 3:
-            folium.Marker(location=[lat, lon], icon=folium.Icon(color='green')).add_to(m)
-        else:
-            folium.Marker(location=[lat, lon], icon=folium.Icon(color='black')).add_to(m)
+        color = cor_dict.get(corPin, 'black')
+        folium.Marker(location=[lat, lon], icon=folium.Icon(color=color)).add_to(m)
 
 #execução
 if __name__ == "__main__":

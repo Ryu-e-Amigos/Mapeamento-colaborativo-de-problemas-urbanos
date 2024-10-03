@@ -5,13 +5,12 @@ import pandas as pd
 db = "banco"
 pw = 'Senha-1234'
 #------------------------------------------------------------------------
-def create_server_connection(host_name, user_name, user_password):
+def create_server_connection(host_name, user_name):
     connection = None
     try:
         connection = mysql.connector.connect(
             host=host_name,
-            user=user_name,
-            passwd=user_password
+            user=user_name
         )
         print("MySQL Database conectado com sucesso")
     except Error as err:
@@ -21,7 +20,7 @@ def create_server_connection(host_name, user_name, user_password):
 
 #------------------------------------------------------------------------
 
-connection = create_server_connection('localhost', 'root', pw)
+connection = create_server_connection('localhost', 'root')
 
 #------------------------------------------------------------------------
 
@@ -41,13 +40,12 @@ create_database(connection, create_database_query)
 
 #------------------------------------------------------------------------
 
-def create_db_connection(host_name, user_name, user_password, db_name):
+def create_db_connection(host_name, user_name, db_name):
     connection = None
     try:
         connection = mysql.connector.connect(
             host=host_name,
             user=user_name,
-            passwd=user_password,
             database=db_name
         )
         print("MySQL Database conectado com sucesso")
@@ -57,7 +55,7 @@ def create_db_connection(host_name, user_name, user_password, db_name):
     return connection
 #------------------------------------------------------------------------
 
-connection = create_db_connection("localhost", "root", pw, db) # Connect to the Database
+connection = create_db_connection("localhost", "root", db) # Connect to the Database
 
 #------------------------------------------------------------------------
 def execute_query(connection, query):

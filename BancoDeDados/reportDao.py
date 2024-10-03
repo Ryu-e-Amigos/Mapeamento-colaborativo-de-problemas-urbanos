@@ -1,6 +1,6 @@
 from BancoDeDados import connection
 
-newConnection = connection.create_server_connection('localhost', 'root', connection.pw)
+newConnection = connection.create_server_connection('localhost', 'root')
 
 class Report():
     def salvarNovo(self, corPin: int, endereco_id: int, usuario_id: int):
