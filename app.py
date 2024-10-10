@@ -148,7 +148,7 @@ def puxarReports(m):
     cor_dict = {1: 'red', 2: 'blue', 3: 'green'}
 
     for i, (rua, numero, cidade) in enumerate(zip(rua_lista, numero_lista, cidade_lista)):
-        end = [rua, numero, cidade]
+        end = f"{rua}, {numero} - {cidade}, SP"
 
         try:
             coord = gpds.tools.geocode(end, provider="nominatim", user_agent="myGeocode")["geometry"]

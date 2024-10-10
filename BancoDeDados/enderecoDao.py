@@ -1,6 +1,6 @@
 from BancoDeDados import connection
 
-newConnection = connection.create_server_connection('localhost', 'root')
+newConnection = connection.create_server_connection('localhost', 'root', connection.pw)
 
 class endereco():
     def salvarNovo(self, rua: str, cidade: str, nmr: int, comp: str):
