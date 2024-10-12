@@ -3,7 +3,7 @@ from BancoDeDados import connection
 newConnection = connection.create_server_connection('localhost', 'root', connection.pw)
 
 class Report():
-    def salvarNovo(self, corPin: int, endereco_id: int, usuario_id: int):
+    def salvarNovo(self, corPin: int, endereco_id: int):
         insert_report_query = """
         INSERT INTO banco.report (situacao, endereco_id) 
         VALUES (%s, %s)
@@ -12,8 +12,8 @@ class Report():
         cursor.execute(insert_report_query, (corPin, endereco_id))
         newConnection.commit()
         cursor.close()
-        report_id = cursor.lastrowid  # Pega o ID do report recém-criado
-        self._saveUsuarioReport(report_id, usuario_id)
+        # report_id = cursor.lastrowid  # Pega o ID do report recém-criado
+        # self._saveUsuarioReport(report_id, usuario_id)
 
 
     def _saveUsuarioReport(self, report_id: int, usuario_id: int):
