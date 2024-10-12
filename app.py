@@ -31,6 +31,18 @@ def cadastro():
 def report():
     return render_template("report.html")
 
+@app.route('/home.html')
+def report():
+    return render_template("home.html")
+
+@app.route('/cliente.html')
+def report():
+    return render_template("cliente.html")
+
+@app.route('/escolha.html')
+def report():
+    return render_template("escolha.html")
+
 @app.route('/report', methods = ["POST"])
 def verificaLogin():
     usuario_login = request.form.get("usuario")
