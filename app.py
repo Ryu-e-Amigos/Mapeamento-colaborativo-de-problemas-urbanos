@@ -32,15 +32,15 @@ def report():
     return render_template("report.html")
 
 @app.route('/home.html')
-def report():
+def home():
     return render_template("home.html")
 
 @app.route('/cliente.html')
-def report():
+def cliente():
     return render_template("cliente.html")
 
 @app.route('/escolha.html')
-def report():
+def escolha():
     return render_template("escolha.html")
 
 @app.route('/report', methods = ["POST"])
@@ -77,11 +77,8 @@ def criaConta():
 def mapa():
     print(session['usuario_id'])
     if 'usuario_id' not in session:
-        print('Você precisa estar logado para salvar um report.')
         flash("Você precisa estar logado para salvar um report.")
         return redirect(url_for("login"))
-    else:
-        print('Usuario logado.')
 
     #Pegando a localização - EX: R. Manoel Santos Chieira, 92
     cidade = request.form.get("cidade")
