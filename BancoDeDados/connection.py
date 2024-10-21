@@ -3,7 +3,7 @@ from mysql.connector import Error
 import pandas as pd
 
 db = "banco"
-pw = 'Senha-1234'
+pw = ''
 #------------------------------------------------------------------------
 def create_server_connection(host_name, user_name, user_password):
     connection = None
@@ -109,6 +109,15 @@ create_endereco_table = """
         complemento VARCHAR(40)
     );
     """
+
+create_endereco_table = """
+    CREATE TABLE endereco (
+        Id INT AUTO_INCREMENT PRIMARY KEY,
+        latitude DECIMAL(10, 8) NOT NULL,
+        longitude DECIMAL(11, 8) NOT NULL,
+        complemento VARCHAR(40)
+    );
+    """
 #------------------------------------------------------------------------
 # REPORT
 create_report_table = """
@@ -158,7 +167,7 @@ def mostrandoReports():
     cursor = connection.cursor()
     cursor.execute(
         """
-            SELECT r.situacao, e.rua, e.cidade, e.numero 
+            SELECT r.situacao, e.latitude, e.longitude 
             FROM banco.report r
             INNER JOIN banco.endereco e
             ON e.Id = r.endereco_id;

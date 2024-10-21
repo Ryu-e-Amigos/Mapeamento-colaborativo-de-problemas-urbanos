@@ -82,25 +82,22 @@ def mapa():
 
     #Pegando a localização - EX: R. Manoel Santos Chieira, 92
     cidade = request.form.get("cidade")
-    print(cidade)
     rua = request.form.get("rua")
-    print(rua)
     nmr = request.form.get("nmr")
-    print(nmr)
     comp = request.form.get("comp")
-    print(comp)
-    end =  [rua, nmr, cidade]
+    end =  f"{rua}, {nmr}, {cidade} - SP"
     corPin = request.form["situacao"]
-    print(corPin)
-    # coord = gpds.tools.geocode(end, provider = "nominatim", user_agent = "myGeocode")["geometry"]  # só funciona na janela interativa
-    # string = str(coord[0])
-    # separacao = string.split()
-    # separacao.remove(separacao[0])
-    # lat = (separacao[1].replace(')',''))
-    # lon = (separacao[0].replace('(',''))
+
+    coord = gpds.tools.geocode(end, provider = "nominatim", user_agent = "myGeocode")["geometry"]  # só funciona na janela interativa
+    string = str(coord[0])
+    separacao = string.split()
+    separacao.remove(separacao[0])
+    lat = float((separacao[1].replace(')','')))
+    lon = float((separacao[0].replace('(','')))
+
     
     newEnderecoDao = enderecoDao.endereco()
-    newEnderecoId = newEnderecoDao.salvarNovo(rua, cidade, nmr, comp)
+    newEnderecoId = newEnderecoDao.salvarNovo(lat, lon, comp)
     newReportDao = reportDao.Report()
     newReportDao.salvarNovo(corPin, newEnderecoId) # Pega o ID do usuário da sessão
 
@@ -149,31 +146,15 @@ def mapa():
 def puxarReports(m):
     df = mostrandoReports()
 
-    rua_lista = df['rua'].tolist()
-    cidade_lista = df['cidade'].tolist()
-    numero_lista = df['numero'].tolist()
+    latitude_lista = df['latitude'].tolist()
+    print(f"latitude lista: {latitude_lista}")
+    longitude_lista = df['longitude'].tolist()
+    print(f"longitude lista: {longitude_lista}")
     situacao_lista = df['situacao'].tolist()
 
     cor_dict = {1: 'red', 2: 'blue', 3: 'green'}
 
-    for i, (rua, numero, cidade) in enumerate(zip(rua_lista, numero_lista, cidade_lista)):
-        end = f"{rua}, {numero} - {cidade}, SP"
-
-        try:
-            coord = gpds.tools.geocode(end, provider="nominatim", user_agent="myGeocode")["geometry"]
-            string = str(coord[0])
-            separacao = string.split()
-            separacao.remove(separacao[0])
-            lat = (separacao[1].replace(')',''))
-            lon = (separacao[0].replace('(',''))
-
-        except KeyError:
-            print(f"Erro na chave: {KeyError}")
-            continue
-        except TypeError:
-            print(f"Erro no tipo: {TypeError}")
-            continue
-
+    for i, (lat, lon) in enumerate(zip(latitude_lista, longitude_lista)):
         corPin = situacao_lista[i]
         color = cor_dict.get(corPin, 'black')
         folium.Marker(location=[lat, lon], icon=folium.Icon(color=color)).add_to(m)
