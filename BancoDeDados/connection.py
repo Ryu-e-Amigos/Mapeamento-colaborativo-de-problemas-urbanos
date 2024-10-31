@@ -2,7 +2,7 @@ import mysql.connector
 from mysql.connector import Error
 import pandas as pd
 
-db = "banco"
+db = "projdsin"
 pw = ''
 #------------------------------------------------------------------------
 def create_server_connection(host_name, user_name, user_password):
@@ -33,7 +33,7 @@ def create_database(connection, query):
     except Error as err:
         print("Database já existe")
 
-create_database_query = "CREATE DATABASE banco"
+create_database_query = "CREATE DATABASE projdsin"
 
 #------------------------------------------------------------------------
 
@@ -103,18 +103,11 @@ create_usuario_table = """
 create_endereco_table = """
     CREATE TABLE endereco (
         Id INT AUTO_INCREMENT PRIMARY KEY,
+        latitude DECIMAL(10, 8) NOT NULL,
+        longitude DECIMAL(11, 8) NOT NULL,
         rua VARCHAR(40) NOT NULL,
         cidade VARCHAR(40) NOT NULL,
         numero INT,
-        complemento VARCHAR(40)
-    );
-    """
-
-create_endereco_table = """
-    CREATE TABLE endereco (
-        Id INT AUTO_INCREMENT PRIMARY KEY,
-        latitude DECIMAL(10, 8) NOT NULL,
-        longitude DECIMAL(11, 8) NOT NULL,
         complemento VARCHAR(40)
     );
     """
@@ -168,8 +161,8 @@ def mostrandoReports():
     cursor.execute(
         """
             SELECT r.situacao, e.latitude, e.longitude 
-            FROM banco.report r
-            INNER JOIN banco.endereco e
+            FROM projdsin.report r
+            INNER JOIN projdsin.endereco e
             ON e.Id = r.endereco_id;
         """
     )

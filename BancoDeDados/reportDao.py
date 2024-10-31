@@ -5,7 +5,7 @@ newConnection = connection.create_server_connection('localhost', 'root', connect
 class Report():
     def salvarNovo(self, corPin: int, endereco_id: int):
         insert_report_query = """
-        INSERT INTO banco.report (situacao, endereco_id) 
+        INSERT INTO projdsin.report (situacao, endereco_id) 
         VALUES (%s, %s)
         """
         cursor = newConnection.cursor()
@@ -19,7 +19,7 @@ class Report():
     def _saveUsuarioReport(self, report_id: int, usuario_id: int):
         # Inserindo na tabela de relacionamento usuario_report
         insert_usuario_report_query = """
-            INSERT INTO banco.usuario_report (usuario_id, report_id) 
+            INSERT INTO projdsin.usuario_report (usuario_id, report_id) 
             VALUES (%s, %s)
         """
         cursor = newConnection.cursor()

@@ -97,7 +97,7 @@ def mapa():
 
     
     newEnderecoDao = enderecoDao.endereco()
-    newEnderecoId = newEnderecoDao.salvarNovo(lat, lon, comp)
+    newEnderecoId = newEnderecoDao.salvarNovo(lat, lon, rua, cidade, nmr, comp)
     newReportDao = reportDao.Report()
     newReportDao.salvarNovo(corPin, newEnderecoId) # Pega o ID do usuário da sessão
 
