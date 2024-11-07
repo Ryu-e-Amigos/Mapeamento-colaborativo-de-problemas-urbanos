@@ -6,9 +6,10 @@ import pyperclip
 import pandas as pds
 import folium
 import folium.plugins
+import geopy.exc
 import geopandas as gpds
 from BancoDeDados import enderecoDao, reportDao, usuarioDao
-from BancoDeDados.connection import mostrandoReports
+from BancoDeDados.connection import mostrandoReports, buscaReports
 
 #iniciando
 app = Flask(__name__)
@@ -42,6 +43,11 @@ def cliente():
 @app.route('/escolha.html')
 def escolha():
     return render_template("escolha.html")
+
+@app.route('/busca.html')
+def busca():
+    tabela = itensDaBusca()
+    return render_template("busca.html", dados=tabela)
 
 @app.route('/report', methods = ["POST"])
 def verificaLogin():
@@ -158,6 +164,22 @@ def puxarReports(m):
         corPin = situacao_lista[i]
         color = cor_dict.get(corPin, 'black')
         folium.Marker(location=[lat, lon], icon=folium.Icon(color=color)).add_to(m)
+
+def itensDaBusca():
+    tabela = []
+    df = buscaReports()
+
+    rua_lista = df['rua'].tolist()
+    cidade_lista = df['cidade'].tolist()
+    numero_lista = df['numero'].tolist()
+    complemento_lista = df['complemento'].tolist()
+
+    for i, (rua, cidade, numero, complemento) in enumerate(zip(rua_lista, cidade_lista, numero_lista, complemento_lista)):
+        tabela.append({'rua': rua, 'cidade': cidade, 'numero': numero, 'complemento': complemento})
+
+    return tabela
+
+        
 
 #execução
 if __name__ == "__main__":

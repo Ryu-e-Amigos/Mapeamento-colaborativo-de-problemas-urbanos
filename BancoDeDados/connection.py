@@ -172,3 +172,19 @@ def mostrandoReports():
     cursor.close()
 
     return df
+
+def buscaReports():
+    cursor = connection.cursor()
+    cursor.execute(
+        """
+            SELECT rua, cidade, numero, complemento
+            FROM endereco
+            ORDER BY rua;
+        """
+    )
+
+    colunas = [desc[0] for desc in cursor.description]
+    df = pd.DataFrame(cursor.fetchall(), columns=colunas)
+    cursor.close()
+
+    return df
