@@ -1,7 +1,7 @@
 body {
     margin: 0;
     font-family: 'Times New Roman';
-    background-image: url(fundo1.jpg);
+    background-image: url(fundocad1.avif);
     background-size: cover;
     height: 100vh;
     width: 100%;
@@ -16,47 +16,62 @@ body {
     position: fixed;
     width: 100%;
 }
+main {
+    padding-top: 95px; 
+}
 
+
+.botao{
+    background-color: rgba(189, 189, 189, 0.856);
+    border: solid rgba(43, 43, 43, 0.267) ;
+    border-radius: 10px 0px 0px 10px;
+}
+
+.input-group-prepend {
+    margin-right: -1px;
+  
+
+}
+
+
+.form-control{
+    border:solid  rgba(43, 43, 43, 0.466) ;
+    border-radius:  0px 10px 10px 0px ;
+}
+
+.input-group {
+    
+    display: flex;
+ 
+   
+    display: flex;
+    justify-content: right;
+    box-shadow: #00000062 6px 6px 6px;
+    padding: 15px;
+    border-radius: 16px;
+    background-color:  #38454de3;
+
+
+   
+}
 
 #Conteudohome {
     
-    margin-inline: auto;
-    height: auto;
-    width: auto;
+    margin-inline: 20px;
     display: flex;
-    justify-content: center;
-    align-items: center;    
-    flex-wrap: nowrap;
+    justify-content: right;
+  
+   
+   
 
 
 }
-#textcont{
-    font-size:16px;
-    color: #ffffff;
-}
+
 
 section{
     
     justify-content: space-between;
 }
-
-
-
-#conteudo{
-    display: flexbox;
-    margin-top: 180px;
-    box-shadow: #000 6px 6px 16px;
-    padding: 20px;
-    border-radius: 16px;
-    text-align:justify;
-    justify-items: center;
-    background-color: rgba(43, 43, 43, 0.87);
-    
-
-}
-
-
-
 
 #titlecont {
     font-family: 'Avenir Next', 'Roboto', 'Verdana';
