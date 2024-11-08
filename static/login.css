@@ -7,93 +7,6 @@ body {
     width: 100%;
 }
 
-section .wave {
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    width: 100%;
-    height: 100px;
-    background: url(wave.png);
-    background-size: 1000px 100px;
-}
-
-section .wave.wave1 {
-    animation: animate 15s linear infinite;
-    z-index: 1000;
-    opacity: 1;
-    animation-delay: 0s;
-    bottom: 0;
-}
-/* section .wave.wave3 {
-    animation: animate 30s linear infinite;
-    z-index: 998;
-    opacity: 0.7;
-    animation-delay: -20s;
-    bottom: 15px;
-} */
-@keyframes animate {
-    0% {
-        background-position-x: 0;
-    }
-    100% {
-        background-position-x: 1000px;
-    }
-}
-
-section .wave.wave3 {
-    animation: animate3 30s linear infinite;
-    z-index: 998;
-    opacity: 0.7;
-    animation-delay: -20s;
-    bottom: 15px;
-}
-@keyframes animate3 {
-    0% {
-        background-position-x: -1000px;
-    }
-    100% {
-        background-position-x: 1000px;
-    }
-}
-
-section .wave.wave2 {
-    animation: animate2 15s linear infinite;
-    z-index: 999;
-    opacity: 0.5;
-    animation-delay: -15s;
-    bottom: 10px;
-}
-/* section .wave.wave4 {
-    animation: animate2 20s linear infinite;
-    z-index: 997;
-    opacity: 0.3;
-    animation-delay: -5s;
-    bottom: 20px;
-} */
-@keyframes animate2 {
-    0% {
-        background-position-x: 0;
-    }
-    100% {
-        background-position-x: -1000px;
-    }
-}
-
-section .wave.wave4 {
-    animation: animate4 20s linear infinite;
-    z-index: 997;
-    opacity: 0.3;
-    animation-delay: -5s;
-    bottom: 20px;
-}
-@keyframes animate4 {
-    0% {
-        background-position-x: 1000px;
-    }
-    100% {
-        background-position-x: 0px;
-    }
-}
 
 
 header {
@@ -138,6 +51,7 @@ header {
     margin-right: -1px;
     display: flex;
 
+
 }
 
 /* caixa de texto*/
@@ -154,8 +68,8 @@ header {
     text-align: center;
     white-space: nowrap;
     background-color: #e9ecef;
-    border: 1px solid #ced4da;
-    border-radius: 0.25rem;
+    border: 1px solid #686868;
+    border-radius: 0.25rem 0rem 0rem 0.25rem;
 }
 
 .input-group {
@@ -186,8 +100,7 @@ header {
 }
 
 #btn {
-    width: 72%;
-    height: 1%;
+
 
     justify-content: center;
     align-items: end;
@@ -206,6 +119,7 @@ header {
     font-size: 25px;
     font-weight: bolder;
     margin-top: 0;
+  
 
 }
 
@@ -222,8 +136,10 @@ header {
 }
 
 #textreg {
+    font-size: small;
     margin-left: 18%;
     margin-right: 18%;
+    font-family: 'Avenir Next', 'Roboto', 'Verdana';
 }
 
 #linkReg {
@@ -244,6 +160,7 @@ header {
     margin-bottom: 0;
     flex-grow: 1;
     margin-right: 60px;
+    
 
 }
 
@@ -261,9 +178,68 @@ input:valid {
     font-weight: 600;
 }
 
-header #redes a {
-    margin: 0 .5rem;
+section{
+    
+    justify-content: space-between;
 }
+
+li{
+    list-style: none;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+   
+  
+   
+}
+
+a {
+    margin: 0 .5rem;
+    justify-content: center;
+}
+#menu, .menunome, ul {
+    display: -ms-flexbox;
+    display: flex;
+    -ms-flex-align: center;
+    align-items: center;
+    flex-wrap: nowrap;
+    position: relative;
+    padding: 0px;
+}
+.menunome{
+font-family: 'Avenir Next', 'Roboto', 'Verdana';
+color: aliceblue;
+font-size: 15px;
+display: flexbox;
+margin-right: 3%;
+text-decoration: none;
+flex-direction: row;
+width: 10em;
+
+}
+#topo {
+    background-color: #38454d;
+  
+    justify-content: space-between;
+    display: flex;
+    position: fixed;
+    width: 100%;
+}
+
+.listdirecao{
+    
+    text-align: center;
+    justify-content: space-between;
+ 
+}
+
+.direcao{
+    
+
+    text-decoration: none;
+    color: #ffd900;
+}
+
 
 #redes{
     display: flex;

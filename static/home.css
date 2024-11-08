@@ -8,15 +8,17 @@ body {
 }
 
 
-#topo {
+
+
+header {
+
     background-color: #38454d;
-  
+    padding-left: 20px;
     justify-content: space-between;
     display: flex;
     position: fixed;
     width: 100%;
 }
-
 
 #Conteudohome {
     
@@ -30,18 +32,14 @@ body {
 
 
 }
+
+
+
+
 #textcont{
     font-size:16px;
     color: #ffffff;
 }
-
-section{
-    
-    justify-content: space-between;
-}
-
-
-
 #conteudo{
     display: flexbox;
     margin-top: 180px;
@@ -51,7 +49,7 @@ section{
     text-align:justify;
     justify-items: center;
     background-color: rgba(43, 43, 43, 0.87);
-    
+    width: 50em;
 
 }
 
@@ -66,38 +64,12 @@ section{
     color: #ffd900;
 }
 
- a {
-    margin: 0 .5rem;
-    justify-content: center;
+
+section{
+    
+    justify-content: space-between;
 }
 
-#redes{
-    display: flex;
-    align-items: center;
-    margin-right: 3%;
-}
-
- #menu, .menunome, ul {
-        display: -ms-flexbox;
-        display: flex;
-        -ms-flex-align: center;
-        align-items: center;
-        flex-wrap: nowrap;
-        position: relative;
-        padding: 0px;
-}
-.menunome{
-    font-family: 'Avenir Next', 'Roboto', 'Verdana';
-    color: aliceblue;
-    font-size: 15px;
-    display: flexbox;
-    margin-right: 3%;
-    text-decoration: none;
-    flex-direction: row;
-    width: 10em;
-   
-
-}
 li{
     list-style: none;
     display: flex;
@@ -107,6 +79,40 @@ li{
   
    
 }
+
+a {
+    margin: 0 .5rem;
+    justify-content: center;
+}
+#menu, .menunome, ul {
+    display: -ms-flexbox;
+    display: flex;
+    -ms-flex-align: center;
+    align-items: center;
+    flex-wrap: nowrap;
+    position: relative;
+    padding: 0px;
+}
+.menunome{
+font-family: 'Avenir Next', 'Roboto', 'Verdana';
+color: aliceblue;
+font-size: 15px;
+display: flexbox;
+margin-right: 3%;
+text-decoration: none;
+flex-direction: row;
+width: 10em;
+
+}
+#topo {
+    background-color: #38454d;
+  
+    justify-content: space-between;
+    display: flex;
+    position: fixed;
+    width: 100%;
+}
+
 .listdirecao{
     
     text-align: center;
@@ -117,13 +123,20 @@ li{
 .direcao{
     
 
+    
     text-decoration: none;
     color: #ffd900;
+
+}
+
+#redes{
+    display: flex;
+    align-items: center;
+    margin-right: 3%;
 }
 
 #logo {
     display: block;
     width: 10em;
 }
-
 

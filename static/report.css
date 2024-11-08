@@ -17,26 +17,68 @@ header {
 
 }
 
-header #redes a {
-    margin: 0 .5rem;
+hsection{
+    
+    justify-content: space-between;
 }
 
-#cabecalho {
+li{
+    list-style: none;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+   
+  
+   
+}
+
+a {
+    margin: 0 .5rem;
+    justify-content: center;
+}
+#menu, .menunome, ul {
+    display: -ms-flexbox;
+    display: flex;
+    -ms-flex-align: center;
+    align-items: center;
+    flex-wrap: nowrap;
+    position: relative;
+    padding: 0px;
+}
+.menunome{
+font-family: 'Avenir Next', 'Roboto', 'Verdana';
+color: aliceblue;
+font-size: 15px;
+display: flexbox;
+margin-right: 3%;
+text-decoration: none;
+flex-direction: row;
+width: 10em;
+
+}
+#topo {
     background-color: #38454d;
-    padding: 8px;
+  
+    justify-content: space-between;
     display: flex;
     position: fixed;
     width: 100%;
-
 }
 
-.input-group {
-    position: relative;
-    display: flex;
-    flex-wrap: wrap;
-    align-items: stretch;
-    width: 100%;
+.listdirecao{
+    
+    text-align: center;
+    justify-content: space-between;
+ 
 }
+
+.direcao{
+    
+
+    text-decoration: none;
+    color: #ffd900;
+}
+
 
 #redes{
     display: flex;
@@ -48,12 +90,26 @@ header #redes a {
     display: block;
     width: 10em;
 }
+.mb-3 {
+    margin-bottom: 1rem !important;
+}
+.input-group {
+    position: relative;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: stretch;
+    width: 100%;
+}
+#logo {
+    display: block;
+    width: 10em;
+}
 
 #report {
     width: 300px;
     padding: 20px;
-    background-color: rgba(0, 0, 0, 0.233);
-    color: #272c30;
+    background-color: rgba(0, 0, 0, 0.438);
+    color: #ffd900;
     border-radius: 16px;
     text-align: center;
     font-family: 'Avenir Next', 'Roboto', 'Verdana';
@@ -75,6 +131,8 @@ header #redes a {
     width: 95%;
     padding: 5px;
     margin-top: 7px;
+    background-color: rgba(255, 255, 255, 0.315);
+    
 
 }
 
