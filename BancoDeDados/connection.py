@@ -3,7 +3,7 @@ from mysql.connector import Error
 import pandas as pd
 
 db = "projdsin"
-pw = 'Senha-1234'
+pw = ''
 #------------------------------------------------------------------------
 def create_server_connection(host_name, user_name, user_password):
     connection = None
