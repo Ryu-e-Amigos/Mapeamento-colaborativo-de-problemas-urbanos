@@ -10,6 +10,9 @@ import geopy.exc
 import geopandas as gpds
 from BancoDeDados import enderecoDao, reportDao, usuarioDao
 from BancoDeDados.connection import mostrandoReports, buscaReports
+from os import remove
+
+map_path = "templates/mapa.html"
 
 #iniciando
 app = Flask(__name__)
@@ -22,7 +25,40 @@ def login():
 
 @app.route('/mapa.html')
 def main():
-    return render_template("mapa.html")
+    # Configurações do mapa
+    m = folium.Map(location=(-22.2127829, -49.9557924), zoom_start=12, control_scale=False)
+    folium.plugins.Geocoder().add_to(m)
+    folium.plugins.Fullscreen(
+        position="topright",
+        title="Expand me", 
+        title_cancel="Exit me", 
+        force_separate_button=True
+    ).add_to(m)
+
+    remove(map_path)
+    # Adiciona marcadores
+    m = puxarReports(m)
+
+    # Legenda
+    legend_html = '''
+     <div style="position: fixed; 
+     bottom: 5px; left: 5px; width: 200px; height: 200px; 
+     border: 2px solid grey; z-index: 9999; font-size: 18px;
+     background-color: white; text-align: center; padding: 10px;
+     border-radius: 6px;
+     ">&nbsp; <b style="font-size: 22px">Legenda</b> <br>
+     &nbsp; Buraco &nbsp; <i class="fa fa-map-marker fa-2x" style="color:#d53e2a"></i><br>
+     &nbsp; Semáforo &nbsp; <i class="fa fa-map-marker fa-2x" style="color:#36a3d3"></i><br>
+     &nbsp; Vazamento &nbsp; <i class="fa fa-map-marker fa-2x" style="color:#6eaa25"></i><br>
+     &nbsp; Obstrução &nbsp; <i class="fa fa-map-marker fa-2x" style="color:#2e2e2e"></i><br>
+      </div>
+     '''
+    m.get_root().html.add_child(folium.Element(legend_html))
+    
+    m.save(map_path)
+
+    # Renderiza o template usando o mapa gerado
+    return render_template("mapa.html", map_path=map_path)
 
 @app.route('/cadastro.html')
 def cadastro():
@@ -108,62 +144,28 @@ def mapa():
     newReportDao.salvarNovo(corPin, newEnderecoId) # Pega o ID do usuário da sessão
 
 
-
-    #Configurações do mapa
-    m = folium.Map(location=(-22.2127829,-49.9557924), zoom_start = 12, control_scale = False, )
-    folium.plugins.Geocoder().add_to(m)
-    folium.plugins.Fullscreen(position="topright", title="Expand me", title_cancel="Exit me", force_separate_button=True).add_to(m)
-
-
-
-
 #   ======================================    INVERSÃO DE FLUXO    ==========================================
-
-
-    # Marcador
-    puxarReports(m)
-
-    # Legenda
-    legend_html = '''
-     <div style="position: fixed; 
-     bottom: 5px; left: 5px; width: 200px; height: 200px; 
-     border: 2px solid grey; z-index: 9999; font-size: 18px;
-     background-color: white; text-align: center; padding: 10px;
-     border-radius: 6px;
-     ">&nbsp; <b style="font-size: 22px">Legenda</b> <br>
-     &nbsp; Buraco &nbsp; <i class="fa fa-map-marker fa-2x" style="color:#d53e2a"></i><br>
-     &nbsp; Semáforo &nbsp; <i class="fa fa-map-marker fa-2x" style="color:#36a3d3"></i><br>
-     &nbsp; Vazamento &nbsp; <i class="fa fa-map-marker fa-2x" style="color:#6eaa25"></i><br>
-     &nbsp; Obstrução &nbsp; <i class="fa fa-map-marker fa-2x" style="color:#2e2e2e"></i><br>
-      </div>
-     '''
-    m.get_root().html.add_child(folium.Element(legend_html))
-
-    botao_html = '''
-     <button style="position: fixed; ">Confirmar</button>
-     '''
-    m.get_root().html.add_child(folium.Element(botao_html))
     
     # Rodando
-    m.save("templates/mapa.html")
     return redirect(url_for("main"))
 
 #Função do Banco
 def puxarReports(m):
     df = mostrandoReports()
+    if df.empty:
+        print("O DataFrame está vazio.")
+        return m  # Retorna o mapa sem alterações
 
-    latitude_lista = df['latitude'].tolist()
-    print(f"latitude lista: {latitude_lista}")
-    longitude_lista = df['longitude'].tolist()
-    print(f"longitude lista: {longitude_lista}")
-    situacao_lista = df['situacao'].tolist()
+    if not {'latitude', 'longitude', 'situacao'}.issubset(df.columns):
+        print("O DataFrame não contém todas as colunas esperadas.")
+        return m
 
     cor_dict = {1: 'red', 2: 'blue', 3: 'green'}
-
-    for i, (lat, lon) in enumerate(zip(latitude_lista, longitude_lista)):
-        corPin = situacao_lista[i]
-        color = cor_dict.get(corPin, 'black')
+    for i, (lat, lon, situacao) in enumerate(zip(df['latitude'], df['longitude'], df['situacao'])):
+        color = cor_dict.get(situacao, 'black')
         folium.Marker(location=[lat, lon], icon=folium.Icon(color=color)).add_to(m)
+
+    return m
 
 def itensDaBusca():
     tabela = []
