@@ -28,19 +28,9 @@
 
         </div>
         <div id="redes">
-            <a href="https://www.facebook.com/DSINTECNOLOGIA/" target="_blank" rel="noopener noreferrer"><img
-                    class="lazy loaded" src="https://www.dsin.com.br/wp-content/uploads/2022/01/facebook.svg"
-                    data-src="https://www.dsin.com.br/wp-content/uploads/2022/01/facebook.svg" alt="Ícone"
-                    data-was-processed="true"></a>
-            <a href="https://www.instagram.com/dsintecnologia/" target="_blank" rel="noopener noreferrer"><img
-                    class="lazy loaded" src="https://www.dsin.com.br/wp-content/uploads/2022/01/instagram.svg"
-                    data-src="https://www.dsin.com.br/wp-content/uploads/2022/01/instagram.svg" alt="Ícone"
-                    data-was-processed="true"></a>
-            <a href="https://www.linkedin.com/company/dsin-tecnologia-da-informacao" target="_blank"
-                rel="noopener noreferrer"><img class="lazy loaded"
-                    src="https://www.dsin.com.br/wp-content/uploads/2022/01/linkedin.svg"
-                    data-src="https://www.dsin.com.br/wp-content/uploads/2022/01/linkedin.svg" alt="Ícone"
-                    data-was-processed="true"></a>
+            <a href="https://www.facebook.com/DSINTECNOLOGIA/" target="_blank" rel="noopener noreferrer"><img class="lazy loaded" src="https://www.dsin.com.br/wp-content/uploads/2022/01/facebook.svg" data-src="https://www.dsin.com.br/wp-content/uploads/2022/01/facebook.svg" alt="Ícone" data-was-processed="true"></a>
+            <a href="https://www.instagram.com/dsintecnologia/" target="_blank" rel="noopener noreferrer"><img class="lazy loaded" src="https://www.dsin.com.br/wp-content/uploads/2022/01/instagram.svg" data-src="https://www.dsin.com.br/wp-content/uploads/2022/01/instagram.svg" alt="Ícone" data-was-processed="true"></a>
+            <a href="https://www.linkedin.com/company/dsin-tecnologia-da-informacao" target="_blank" rel="noopener noreferrer"><img class="lazy loaded" src="https://www.dsin.com.br/wp-content/uploads/2022/01/linkedin.svg" data-src="https://www.dsin.com.br/wp-content/uploads/2022/01/linkedin.svg" alt="Ícone" data-was-processed="true"></a>
 
         </div>
 
@@ -56,30 +46,29 @@
                     <span><button class="botao">🔍</button></span>
                 </div>
 
-                <input type="text" class="form-control " name="pesquisar" placeholder="Pesquisar" minlength="8"
-                    required>
+                <input type="text" class="form-control " name="pesquisar" placeholder="Pesquisar" minlength="8" required>
             </div>
 
         </section>
 
-        <table border=1>
+        <table border=1 class="table-busca">
             <thead>
-              <td style="padding: 10px;">Rua</td>
-              <td style="padding: 10px;">Número</td>
-              <td style="padding: 10px;">Complemento</td>
-              <td style="padding: 10px;">Cidade</td>
+                <td style="padding: 10px;">Rua</td>
+                <td style="padding: 10px;">Número</td>
+                <td style="padding: 10px;">Complemento</td>
+                <td style="padding: 10px;">Cidade</td>
             </thead>
             <tbody>
-              {% for endereco in dados %}
+                {% for endereco in dados %}
                 <tr>
-                  <td style="padding: 10px;">{{ endereco.rua }}</td>
-                  <td style="padding: 10px;">{{ endereco.numero }}</td>
-                  <td style="padding: 10px;">{{ endereco.complemento }}</td>
-                  <td style="padding: 10px;">{{ endereco.cidade }}</td>
+                    <td style="padding: 10px;">{{ endereco.rua }}</td>
+                    <td style="padding: 10px;">{{ endereco.numero }}</td>
+                    <td style="padding: 10px;">{{ endereco.complemento }}</td>
+                    <td style="padding: 10px;">{{ endereco.cidade }}</td>
                 </tr>
-              {% endfor %}
+                {% endfor %}
             </tbody>
-          </table>
+        </table>
 
     </main>
 </body>
