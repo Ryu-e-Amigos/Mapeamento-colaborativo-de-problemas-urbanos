@@ -6,6 +6,36 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Busca</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='busca.css') }}">
+    <script>
+        function filtrarBusca() {
+            const termo = document.querySelector('[name="pesquisar"]').value.toLowerCase();
+            const linhas = document.querySelectorAll('.table-busca tbody tr');
+    
+            linhas.forEach(linha => {
+                const conteudoLinha = linha.textContent.toLowerCase();
+                if (conteudoLinha.includes(termo)) {
+                    linha.style.display = ''; // Exibe a linha
+                } else {
+                    linha.style.display = 'none'; // Oculta a linha
+                }
+            });
+        }
+
+        // document.addEventListener("updateReports", function(e) {
+        //     tabela = []
+        //     df = BancoDeDados.connection.buscaReports()
+
+        //     rua_lista = df['rua'].tolist()
+        //     cidade_lista = df['cidade'].tolist()
+        //     numero_lista = df['numero'].tolist()
+        //     complemento_lista = df['complemento'].tolist()
+
+        //     for i, (rua, cidade, numero, complemento) in enumerate(zip(rua_lista, cidade_lista, numero_lista, complemento_lista)):
+        //         tabela.append({'rua': rua, 'cidade': cidade, 'numero': numero, 'complemento': complemento})
+
+        //     dados= tabela
+        // })
+    </script>
 </head>
 
 <body>
@@ -46,7 +76,7 @@
                     <span><button class="botao">🔍</button></span>
                 </div>
 
-                <input type="text" class="form-control " name="pesquisar" placeholder="Pesquisar" minlength="8" required>
+                <input type="text" onkeyup="filtrarBusca()"  class="form-control " name="pesquisar" placeholder="Pesquisar" required />
             </div>
 
         </section>
